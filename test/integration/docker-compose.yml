@@ -1,0 +1,24 @@
+name: "yeet-test"
+
+volumes:
+  shared:
+
+services:
+  shared:
+    build:
+      context: docker/shared
+    volumes:
+      - shared:/shared
+
+  client:
+    build:
+      context: docker/client
+    volumes:
+      - shared:/shared
+
+  testhost:
+    build:
+      context: docker/testhost
+    volumes:
+      - shared:/shared
+

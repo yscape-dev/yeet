@@ -1,0 +1,22 @@
+destination:
+  host: 0.0.0.0
+  username: root
+  port: 23502
+
+sync:
+  include:
+    - target/benchmarks.jar
+  exclude: '*'
+
+setup:
+  command:
+    - apt-get install -y curl zip unzip
+    - curl -s "https://get.sdkman.io" | bash
+    - source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+    - sdk install java 21.0.1-open
+    - sdk install maven
+
+command: java -jar target/benchmarks.jar -rf json -rff benchmark_results.json
+
+output:
+  - benchmark_results.json
